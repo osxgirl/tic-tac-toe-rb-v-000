@@ -57,7 +57,7 @@ def winner(board)
   end
 end
 
-ef display_board(board)
+def display_board(board)
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
   puts "-----------"
   puts " #{board[3]} | #{board[4]} | #{board[5]} "
@@ -66,13 +66,12 @@ ef display_board(board)
 end
 
 def input_to_index(move)
-  move=move.to_i-1
+  move=move.to_i - 1
 end
 
-def move(array, index, value="X")
+def move(array, index, value)
   array[index]=value
 end
-
 
 def position_taken?(board, index)
   if board[index] == " " || board[index] == "" || board[index] == nil
@@ -92,7 +91,6 @@ def valid_move?(board, index)
   end
 end
 
-
 def turn_count(board)
   count = 0
   board.each do |index|
@@ -111,17 +109,16 @@ def current_player(board)
   end
 end
 
-
 def turn(board)
   puts "Please enter 1-9:"
-    userInput = gets.strip
-    index = input_to_index(userInput)
-    if !valid_move?(board, index)
-      turn(board)
-    else
-      move(board, index, current_player(board))
-    end
-  display_board(board)
+  input = gets.strip
+  index = input_to_index(input)
+  if valid_move?(board, index)
+    move(board, index)
+    display_board(board)
+  else
+    turn(board)
+  end
 end
 
 def  play(board)
