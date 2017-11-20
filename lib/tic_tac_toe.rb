@@ -110,7 +110,6 @@ def current_player(board)
   end
 end
 
-
 def turn(board)
   puts "Please enter 1-9:"
     userInput = gets.strip
@@ -121,4 +120,66 @@ def turn(board)
       move(board, index, current_player(board))
     end
   display_board(board)
+end
+
+def current_player(board)
+  if turn_count(board) % 2 == 0
+    return "X"
+  else
+    return "O"
+  end
+end
+
+def won?(board)
+  win_conditions.each do |win|
+  #  returns an array of matching indexes for a win
+  if win.all?{|y| board[y] == "X"}
+    return win
+    elsif win.all?{|y| board[y] == "O"}
+      return win
+    end
+  end
+  return false # returns false for an empty board / a draw
+end
+
+def full?(board)
+  board.all? do |position|
+    position == "X" || position == "O"
+  end
+end
+
+def draw?(board)
+  !(won?(board)) && full?(board)
+end
+
+    def over?(board)
+      if full?(board) == true
+        return true
+      end
+      return false
+    end
+
+def winner(board)
+ if (draw?(board) || !full?(board)) && !won?(board)
+    return nil
+  elsif (board[won?(board)[0]] == "X")
+    return "X"
+  elsif (board[won?(board)[0]] == "O")
+    return "O"
+  end
+end
+
+def play(board)
+  while !over?(board) && !won?(board) && !draw?(board)
+    turn(board)
+  end
+
+  if won?(board)
+   puts "Congratulations #{winner(board)}!"
+ end
+
+ if draw?(board)
+   puts "Cats Game!"
+ end
+
 end
