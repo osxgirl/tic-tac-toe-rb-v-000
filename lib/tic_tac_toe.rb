@@ -124,10 +124,9 @@ def turn(board)
 end
 
 def play(board)
-  position.to_i.between?(1,9) && !position_taken?(board, position.to_i-1)		 +  turn = 0
+  turn = 0
     while turn < 9
       turn(board)
       turn += 1
     end
   end
-end
